@@ -1,0 +1,147 @@
+{% if response.modele is defined %} {% set modele = response.modele %} {% endif %}
+{% if response.marca is defined %} {% set marca = response.marca %} {% endif %}
+{% if response.model is defined %} {% set model = response.model %} {% endif %}
+{% if response.caroserii is defined %} {% set caroserii = response.caroserii %} {% endif %}
+{% if response.motorizari is defined %} {% set motorizari = response.motorizari %} {% endif %}
+{% if response.ani_motorizari is defined %} {% set ani_motorizari = response.ani_motorizari %} {% endif %}
+{% if response.combustibili is defined %} {% set combustibili = response.combustibili %} {% endif %}
+{% if response.combustibil_selected is defined %} {% set combustibil_selected = response.combustibil_selected %} {% endif %}
+{% if response.an_selected is defined %} {% set an_selected = response.an_selected %} {% endif %}
+
+{% if response.caroserii is defined %} {% set caroserii = response.caroserii %} {% endif %}
+{% if response.caroserie_selected is defined %} {% set caroserie_selected = response.caroserie_selected %} {% endif %}
+{% if response.cmcs is defined %} {% set cmcs = response.cmcs %} {% endif %}
+{% if response.cmc_selected is defined %} {% set cmc_selected = response.cmc_selected %} {% endif %}
+{% if response.puteri is defined %} {% set puteri = response.puteri %} {% endif %}
+{% if response.putere_selected is defined %} {% set putere_selected = response.putere_selected %} {% endif %}
+{% if response.tip_selected is defined %} {% set tip_selected = response.tip_selected %} {% endif %}
+{% if response.tip is defined %} {% set tip = response.tip %} {% endif %}
+{% if response.id_categorie is defined %} {% set id_categorie = response.id_categorie %} {% endif %}
+{% if response.parent_category is defined %} {% set parent_category = response.parent_category %} {% endif %}
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 ">
+        <form id="car-select" class="form-inline" method="post" action="{{ path('ajax_set_user_options') }}">
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="marci" id="marci" placeholder="Marca" class="form-control">
+                    <option value="">Marca</option>
+                {% for marca_db in marci %}
+                    <option value="{{ marca_db.id }}" {% if marca is defined and marca != false and marca.id == marca_db.id %}selected{% endif %}>
+                        {{ marca_db.nume }}
+                    </option>
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="model" id="model" placeholder="Model" {% if modele is defined and modele == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if modele is defined %}
+                        {% for model_db in modele %}
+                            <option value="{{ model_db.id }}" {% if model is defined and model != false and model.id == model_db.id %}selected{% endif %}>
+                                {{ model_db.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="caroserie" id="caroserie" placeholder="Caroserie" {% if caroserii is defined and caroserii == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if caroserii is defined %}
+                        {% for caroserie in caroserii %}
+                            <option value="{{ caroserie.id }}" {% if caroserie_selected is defined and caroserie_selected != false and caroserie.id == caroserie_selected %}selected{% endif %}>
+                                {{ caroserie.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="an" id="an" placeholder="An fabricatie" {% if ani_motorizari is defined and ani_motorizari == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if ani_motorizari is defined and ani_motorizari != false %}
+                        {% for an_motorizare in ani_motorizari %}
+                            <option value="{{ an_motorizare.id }}" {% if an_selected is defined and an_selected != false and an_motorizare.id == an_selected %}selected{% endif %}>
+                                {{ an_motorizare.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="combustibil" id="combustibil" placeholder="Combustibil" {% if combustibili is defined and combustibili == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if combustibili is defined and combustibili != false %}
+                        {% for combustibil in combustibili %}
+                            <option value="{{ combustibil.id }}" {% if combustibil_selected is defined and combustibil_selected != false and combustibil.id == combustibil_selected %}selected{% endif %}>
+                                {{ combustibil.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="cmc" id="cmc" placeholder="Capacitate cilindrica" {% if cmcs is defined and cmcs == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if cmcs is defined and cmcs != false %}
+                        {% for cmc in cmcs %}
+                            <option value="{{ cmc.id }}" {% if cmc_selected is defined and cmc_selected != false and cmc.id == cmc_selected %}selected{% endif %}>
+                                {{ cmc.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="cp" id="cp" placeholder="putere motor" {% if puteri is defined and puteri == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if puteri is defined and puteri != false %}
+                        {% for putere in puteri %}
+                            <option value="{{ putere.id }}" {% if putere_selected is defined and putere_selected != false and putere.id == putere_selected %}selected{% endif %}>
+                                {{ putere.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                <select name="tip" id="tip" placeholder="Alege tip auto" {% if motorizari is defined and motorizari == false %}disabled{% endif %}>
+                    <option value=""></option>
+                    {% if motorizari is defined and motorizari != false %}
+                        {% for motorizare in motorizari %}
+                            <option value="{{ motorizare.id }}" {% if tip_selected is defined and tip_selected != false and motorizare.id == tip_selected %}selected{% endif %}>
+                                {{ motorizare.nume }}
+                            </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-lg-offset-9">
+                <input type="submit" class="btn btn-info btn-sm" value="Afisare piese" />
+            </div>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var car_selection_request_url = '{{ path('ajax_set_user_options') }}';
+    var marca_id = '{% if marca is defined and marca.id is defined %}{{ marca.id }}{% endif %}';
+    var model_id = '{% if model is defined and model.id is defined %}{{ model.id }}{% endif %}';
+    var motorizari_exists = {% if motorizari is defined %} true {% else %} false {% endif %};
+    var an_selected = {% if an_selected is defined and an_selected is not empty %} {{ an_selected }} {% else %} false {% endif %};
+    var combustibil_selected = {% if combustibil_selected is defined %} '{{ combustibil_selected }}' {% else %} false {% endif %};
+    var caroserie_selected = {% if caroserie_selected is defined %} '{{ caroserie_selected }}' {% else %} false {% endif %};
+    var cmc_selected = {% if cmc_selected is defined %} '{{ cmc_selected }}' {% else %} false {% endif %};
+    var putere_selected = {% if putere_selected is defined %} '{{ putere_selected }}' {% else %} false {% endif %};
+    var motorizare_selected = {% if tip_selected is defined %} '{{ tip_selected }}' {% else %} false {% endif %};
+    var id_categorie = {% if id_categorie is defined %} '{{ id_categorie }}' {% else %} false {% endif %};
+    var parent_category = {% if parent_category is defined %} '{{ parent_category }}' {% else %} false {% endif %};
+</script>

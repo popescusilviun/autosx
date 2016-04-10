@@ -1,0 +1,10 @@
+{
+  "name": "Autocart",
+  "version": "0.0.1",
+  "devDependencies": {
+  //installed packages will go in here
+    "grunt": "~0.4.1",
+    "grunt-contrib-scss": "~0.1.2",
+    "grunt-contrib-watch": "~0.4.4"  
+  }
+}

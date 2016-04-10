@@ -1,0 +1,15 @@
+<div class="left-side-categories pull-left">
+    <ul>
+        {% for category in categories %}
+            {% if category.level == 0 %}
+            <li class="level-0" data-cat="{{ category.id }}">{{ category.nume }}</li>
+            {% endif %}
+            {% if category.level == 1 %}
+                <li class="level-1 open-{{ category.parent.id }}" data-cat="{{ category.id }}">{{ category.nume }}</li>
+            {% endif %}
+            {% if category.level == 2 %}
+                <li class="level-2 open-{{ category.parent.id }}" data-cat="{{ category.id }}">{{ category.nume }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

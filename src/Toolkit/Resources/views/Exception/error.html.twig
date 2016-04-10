@@ -1,0 +1,48 @@
+{% extends 'EncipediaFrontendBundle::layout.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    {% if status_text is defined %}
+        {% block title %}{{ status_text ~ ' - Encipedia'}}{% endblock %}
+    {% endif %}
+{% endblock %}
+{% block header %}
+    {% include 'Frontend:Layout:topbar.html.twig' with topbarVariables %}
+{% endblock %}
+{% block content %}
+    <div id='main-nav' style="margin:20px auto;">
+        <div id='nav-level1'>
+            {#<p style="margin-bottom: 5px; font-size: 14px;">The following error occurred: </p>#}
+            {#<h1><strong>{{ status_code }} {{ status_text }}</strong></h1>#}
+            {#{% if status_code == 404 %}#}
+            {#<p style="font-size: 14px; margin: 5px 0 10px 0; line-height: 1.2em;">#}
+            {#The page you are looking was not found.<br />#}
+            {#We are sorry for the inconvenience.#}
+            {#</p>#}
+            {#{% else %}#}
+            {#<p style="font-size: 14px; margin-top: 5px; line-height: 1.2em;">#}
+            {#Something is broken. </br>#}
+            {#Please send a <a href="mailto:contact@encipedia.org">feedback</a> and let us know </br>#}
+            {#what you were doing when this error occurred. </br>#}
+            {#We will fix it as soon as possible. </br>#}
+            {#Sorry for any inconvenience caused.#}
+            {#</p>#}
+            {#{% endif %}#}
+
+            <div id="tile1" class="tile" style="background: #2B4D72; padding: 10px; text-transform: none;"><strong>{{ status_code }} {{ status_text }}</strong></div>
+            <div id="tile7" class="tile" style="height: 55px; padding: 10px; text-transform: none; left: 240px;">The following error occurred: </div>
+
+            <div id="tile2" class="tile" style="background: #2B4D72;  padding: 10px; text-transform: none; top:100px; left:300px; width: 400px; height: 150px;">
+                {% if status_code == 404 %}
+                    The page you are looking was not found.<br />
+                    We are sorry for the inconvenience.
+                {% else %}
+                    Something is broken. </br>
+                    Please send a <a style="color: #EEEEEE;" href="mailto:contact@encipedia.org">feedback</a> and let us know </br>
+                    what you were doing when this error occurred. </br>
+                    We will fix it as soon as possible. </br>
+                    Sorry for any inconvenience caused.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

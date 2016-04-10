@@ -1,0 +1,113 @@
+{% if response.modele is defined %} {% set modele = response.modele %} {% endif %}
+{% if response.marca is defined %} {% set marca = response.marca %} {% endif %}
+{% if response.model is defined %} {% set model = response.model %} {% endif %}
+{% if response.motorizari is defined %} {% set motorizari = response.motorizari %} {% endif %}
+{% if response.ani_motorizari is defined %} {% set ani_motorizari = response.ani_motorizari %} {% endif %}
+{% if response.combustibili is defined %} {% set combustibili = response.combustibili %} {% endif %}
+{% if response.combustibil_selected is defined %} {% set combustibil_selected = response.combustibil_selected %} {% endif %}
+{% if response.an_selected is defined %} {% set an_selected = response.an_selected %} {% endif %}
+
+<div id="side-bar-marci" class="pull-left">
+    <div class="side-bar-heading">Marci</div>
+    <ul class="marci">
+        {% for marca_db in marci %}
+            <li class="side-bar-marca-item" data-item="{{ marca_db.id }}">
+                <span class="side-bar-marca-item-click {% if marca is defined and marca.id is defined and marca_db.id == marca.id %}li-active{% endif %}">{{ marca_db.nume }}</span>
+                <ul id="side-bar-model-item-{{ marca_db.id }}" class="side-bar-modele-items">
+                    {% for model_db in modele %}
+                        {% if model_db.id_marca == marca_db.id %}
+                        <li class="side-bar-model-item {% if model and  model.id == model_db.id %}li-active{% endif %}" data-item="{{ model_db.id }}">
+                            {{ model_db.nume }}
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="side-bar-motorizari" class="pull-left">
+    {% if motorizari is defined and motorizari != false %}
+        <div class="side-bar-heading">Model</div>
+        <ul class="motorizari-data">
+            {% for motorizare in motorizari %}
+                <li class="side-bar-motorizare-item" data-item="{{ motorizare.id }}">
+                    {{ motorizare.nume }} ({{ motorizare.an_start ~ ' - ' ~ motorizare.an_final }})
+                    <div class="info">
+                        {{ motorizare.caroserie }} - {{ motorizare.cmc }} cm<sup>3</sup>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+</div>
+
+
+{% if false %}
+
+<div id="side-bar-marci" class="pull-left">
+    <ul class="marci">
+        {% for marca_db in marci %}
+        <li class="side-bar-marca-item {% if marca is defined and marca.id is defined and marca_db.id == marca.id %}li-active{% endif %}" data-item="{{ marca_db.id }}">{{ marca_db.nume }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="side-bar-modele" class="pull-left">
+    {% if modele %}
+    <ul class="modele">
+        {% for model_db in modele %}
+            <li class="side-bar-model-item {% if model and  model.id == model_db.id %}li-active{% endif %}" data-item="{{ model_db.id }}">{{ model_db.nume }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div id="side-bar-motorizari" class="pull-left">
+    {% if ani_motorizari %}
+        <div class="motorizari">
+            <select class="ani-motorizari">
+                {% for an_motorizare in ani_motorizari.an_min..ani_motorizari.an_max %}
+                    <option {% if an_selected is defined and an_selected == an_motorizare%}selected{% endif %} value="{{ an_motorizare }}">{{ an_motorizare }}</option>
+                {% endfor %}
+            </select>
+
+            <select class="combustibili-motorizari {% if not combustibili is defined %}display-none{% endif %}">
+                <option value=""> -- alege carburant --</option>
+                {% if combustibili is defined %}
+                    {% for combustibil in combustibili %}
+                        <option {% if combustibil_selected is defined and combustibil.carburant == combustibil_selected %}selected{% endif %} value="{{ combustibil.carburant }}">{{ combustibil.carburant }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    {% endif %}
+
+
+    {% if motorizari is defined and motorizari != false and combustibil_selected is defined %}
+        <ul class="motorizari-data">
+            {% for motorizare in motorizari %}
+                <li class="side-bar-motorizare-item" data-item="{{ motorizare.id }}">{{ motorizare.nume }}
+                    <div class="info">
+                        cmc: {{ motorizare.cmc }} {{ motorizare.kw }}kw ({{ motorizare.cp}}cp)
+                        cod motor: {{ motorizare.cod_motor }} - {{ motorizare.caroserie }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+</div>
+{% endif %}
+<script type="text/javascript">
+    var left_side_request_url = '{{ path('ajax_set_user_options') }}';
+    var marca_id = '{% if marca is defined and marca.id is defined %}{{ marca.id }}{% endif %}';
+    var model_id = '{% if model is defined and model.id is defined %}{{ model.id }}{% endif %}';
+    var motorizari_exists = {% if motorizari is defined %} true {% else %} false {% endif %};
+    var an_selected = {% if an_selected is defined and an_selected is not empty %} {{ an_selected }} {% else %} false {% endif %};
+    var combustibil_selected = {% if combustibil_selected is defined %} '{{ combustibil_selected }}' {% else %} false {% endif %};
+</script>

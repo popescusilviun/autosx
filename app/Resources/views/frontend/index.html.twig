@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+    {% if not homepage is defined and not response.model and response.marca %}
+        Piese auto {{ response.marca.nume }}
+    {% elseif not homepage is defined and response.model and response.marca %}
+        Piese auto {{ response.marca.nume }} {{ response.model.nume }}
+    {% elseif not homepage is defined and response.model and response.marca and response.tip %}
+        Piese auto {{ response.marca.nume }} {{ response.model.nume }} {{ response.tip.nume }}
+    {% elseif homepage is defined %}
+        Piese auto Auto-Cart.ro
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if response.tip is defined and response.tip != false %}
+    <div class="col-lg-2 pull-left">
+        {{ render(controller("AppBundle:Frontend:leftSideCategories")) }}
+    </div>
+    {% endif %}
+    <div class="main-content col-lg-10">
+        {% if produse is defined %}
+            {% include "frontend/load_products.html.twig" with { 'produse' : produse } %}
+        {% endif %}
+        <div id="loading"></div>
+        <div id="container">
+            <div class="data"></div>
+            <div class="pagination"></div>
+        </div>
+    </div>
+{% endblock %}

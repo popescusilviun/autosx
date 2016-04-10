@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ro-ro" >
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset='utf-8'>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{{ site_name }}{% endblock %}</title>
+        <meta name="description" content="{% block meta_description %}Autocart description.{% endblock %}" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/app/css/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/app/js/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/app/css/normalize.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/app/js/jPages/css/jPages.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/app/js/jPages/css/animate.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/app/css/main.css') }}" rel="stylesheet" />
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            {% block header %}{% endblock %}
+            {% include "frontend/header.html.twig" %}
+            <div id="container">
+                {#{% include "frontend/leftSideBar.html.twig" with { 'response' : response, 'marci' : marci } %}#}
+                <div class="content col-lg-12 col-md-12 col-sm-12">
+                    {% include "default/car_selection.html.twig" with { 'response' : response, 'marci' : marci } %}
+                    {% block content %}_CONTENT{% endblock %}
+                </div>
+            </div>
+            <div class="cart-container">
+                <div class="cart-content">
+                    aaa
+                    bbb
+                    ccc
+                </div>
+            </div>
+            <footer id="footer">&nbsp;</footer>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/app/js/jquery-1.12.1.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jquery-ui/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/css/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jquery.slimscroll.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/select2/dist/js/select2.full.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/select2/dist/js/i18n/ro.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jPages/highlight.pack.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jPages/tabifier.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jPages/js.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/jPages/jPages.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/app.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/cart.js') }}"></script>
+        {% endblock %}
+        {% block footer %} {% endblock %}
+    </body>
+</html>
